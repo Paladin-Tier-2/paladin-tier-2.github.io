@@ -8,44 +8,60 @@ type Props = {
 
 const { deck } = Astro.props;
 const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
+const mediaBySlide = new Map<number, Deck["media"]>();
+
+for (const media of deck.media) {
+  const current = mediaBySlide.get(media.slide) ?? [];
+  current.push(media);
+  mediaBySlide.set(media.slide, current);
+}
 ---
 
 <div class="deck-viewer" data-deck-viewer>
   <div class="deck-frame reveal" tabindex="0">
     <div class="slides">
       {
-        slides.map((slideNumber, index) => (
-          <section>
-            <img
-              src={slideImage(deck, slideNumber)}
-              alt={`${deck.shortTitle}, slide ${slideNumber} of ${deck.slideCount}`}
-              loading={index < 2 ? "eager" : "lazy"}
-            />
-          </section>
-        ))
-      }
-      {
-        deck.media.map((item) => {
-          const src = `${deck.mediaRoot}/${item.file}`;
-          const isGif = item.file.endsWith(".gif");
+        slides.map((slideNumber, index) => {
+          const embeddedMedia = mediaBySlide.get(slideNumber) ?? [];
 
           return (
             <section>
-              <div class="viewer-media-slide">
-                {isGif ? (
-                  <img src={src} alt={item.label} loading="lazy" />
-                ) : (
-                  <video
-                    src={src}
-                    controls
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                    aria-label={item.label}
-                  />
-                )}
-                <p>{item.label}</p>
+              <div class="slide-shell">
+                <img
+                  class="slide-image"
+                  src={slideImage(deck, slideNumber)}
+                  alt={`${deck.shortTitle}, slide ${slideNumber} of ${deck.slideCount}`}
+                  loading={index < 2 ? "eager" : "lazy"}
+                />
+                {embeddedMedia.map((item) => {
+                  const src = `${deck.mediaRoot}/${item.file}`;
+                  const isGif = item.file.endsWith(".gif");
+                  const style = [
+                    `left: ${item.placement.left}%`,
+                    `top: ${item.placement.top}%`,
+                    `width: ${item.placement.width}%`,
+                    `height: ${item.placement.height}%`,
+                  ].join("; ");
+
+                  return (
+                    <div class="embedded-media" style={style}>
+                      {isGif ? (
+                        <img src={src} alt={item.label} loading="lazy" />
+                      ) : (
+                        <video
+                          src={src}
+                          data-autoplay
+                          autoplay
+                          muted
+                          loop
+                          playsinline
+                          preload="auto"
+                          aria-label={item.label}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </section>
           );
@@ -66,9 +82,9 @@ const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
       viewer.dataset.ready = "true";
       const deck = new Reveal(viewer, {
         embedded: true,
-        controls: true,
-        progress: true,
-        slideNumber: "c/t",
+        controls: false,
+        progress: false,
+        slideNumber: false,
         hash: false,
         keyboard: true,
         width: 1600,
@@ -77,7 +93,28 @@ const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
         transition: "none",
         backgroundTransition: "none",
       });
+      (viewer as HTMLElement & { deck?: unknown }).deck = deck;
 
+      const syncVideo = () => {
+        viewer.querySelectorAll("section:not(.present) video").forEach((video) => {
+          if (video instanceof HTMLVideoElement) {
+            video.pause();
+          }
+        });
+
+        viewer.querySelectorAll(".present video").forEach((video) => {
+          if (video instanceof HTMLVideoElement) {
+            video.currentTime = 0;
+            video.muted = true;
+            video.play().catch(() => {
+              video.controls = true;
+            });
+          }
+        });
+      };
+
+      deck.on("ready", syncVideo);
+      deck.on("slidechanged", syncVideo);
       deck.initialize();
       viewer.focus({ preventScroll: true });
     }

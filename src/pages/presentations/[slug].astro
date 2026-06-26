@@ -17,26 +17,7 @@ if (!deck) {
 ---
 
 <SiteLayout title={`${deck.shortTitle} | Ekvin Saleh`}>
-  <main class="page-shell deck-page">
-    <section class="deck-hero">
-      <div>
-        <p class="kicker">{deck.category}</p>
-        <h1>{deck.title}</h1>
-        <p>{deck.summary}</p>
-      </div>
-      <div class="deck-actions">
-        <a class="button primary" href={deck.pdf}>Open full PDF</a>
-        <a class="button ghost" href="/assets/documents/ekvin-saleh-cv.pdf">Open CV</a>
-      </div>
-    </section>
-
-    <section class="deck-stage" id="viewer">
-      <div class="deck-stage-head">
-        <span>{deck.slideCount} slides</span>
-        <span>{deck.media.length} playable animations</span>
-        <span>Use left / right arrows</span>
-      </div>
-      <DeckViewer deck={deck} />
-    </section>
+  <main class="presentation-page" id="viewer">
+    <DeckViewer deck={deck} />
   </main>
 </SiteLayout>

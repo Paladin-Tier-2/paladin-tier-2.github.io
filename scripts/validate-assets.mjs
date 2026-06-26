@@ -61,7 +61,7 @@ async function exists(path) {
 for (const [slug, slideCount, folder, media, pdf] of decks) {
   for (let slide = 1; slide <= slideCount; slide += 1) {
     await exists(
-      `public/assets/decks/${folder}/slides/slide-${String(slide).padStart(2, "0")}.png`,
+      `public/assets/decks/${folder}/slides/slide-${String(slide).padStart(2, "0")}.svg`,
     );
   }
 

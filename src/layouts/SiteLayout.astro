@@ -13,6 +13,7 @@ const {
 } = Astro.props;
 
 const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
+const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
 ---
 
 <!doctype html>
@@ -24,7 +25,7 @@ const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class={bodyClass}>
     <header class="site-header">
       <a class="identity" href="/">
         <span class="mark">E</span>
