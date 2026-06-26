@@ -1,33 +1,26 @@
 # Ekvin Saleh Physics Portfolio
 
-Astro site for selected presentation decks, playable extracted animations, and one
-published paper.
+This was built as my portfolio site for selected physics presentations and one published paper.
 
-## Commands
+The goal was simple: people should be able to open the work in a browser instead of downloading large slide files. The presentation pages were set up with rendered slides, playable animations, and PDF decks.
+
+## Run It
 
 ```bash
 npm install
 npm run dev
-npm run check
-npm run build
-npm run preview
 ```
 
-`npm run check` runs:
+Useful checks:
 
-- `astro check`
-- ESLint
-- Prettier format check
-- static asset validation for slides, videos, PDFs, and thumbnails
+```bash
+npm run check
+npm run build
+```
 
-## Structure
+`npm run check` was set up to run Astro checks, ESLint, Prettier, and an asset check for the slides, videos, PDFs, and thumbnails.
 
-- `src/data/decks.ts` is the source of truth for presentation metadata.
-- `src/pages/presentations/[slug].astro` renders each presentation page.
-- `src/components/DeckViewer.astro` embeds Reveal.js and appends playable media slides.
-- `public/assets/` contains the rendered slides, extracted videos, PDFs, and paper thumbnail.
-
-## Direct Presentation Links
+## Pages
 
 - `/presentations/charge-density-waves/`
 - `/presentations/reactor-steels-pas/`
@@ -35,17 +28,24 @@ npm run preview
 - `/presentations/muon-catalyzed-fusion/`
 - `/publication/`
 
-## Deployment
+## Where Things Live
 
-The site is static. Deploy the `dist/` output from:
+- `src/data/decks.ts` kept the presentation metadata.
+- `src/pages/presentations/[slug].astro` built each presentation page.
+- `src/components/DeckViewer.astro` handled the slide viewer.
+- `public/assets/` held the rendered slides, videos, PDFs, CV, and paper thumbnail.
+
+## Deploy
+
+Build the static site:
 
 ```bash
 npm run build
 ```
 
-Netlify build settings:
+Deploy `dist/`.
+
+For Netlify:
 
 - Build command: `npm run build`
 - Publish directory: `dist`
-
-GitHub Pages can use the same `dist/` artifact through a Pages workflow.
