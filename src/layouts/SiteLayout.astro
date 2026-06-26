@@ -1,4 +1,5 @@
 ---
+import { decks } from "../data/decks";
 import "../styles/global.css";
 
 type Props = {
@@ -10,6 +11,8 @@ const {
   title = "Ekvin Saleh | Physics Portfolio",
   description = "Selected physics presentations, animations, and published work by Ekvin Saleh.",
 } = Astro.props;
+
+const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
 ---
 
 <!doctype html>
@@ -28,12 +31,21 @@ const {
         <span>Ekvin Saleh</span>
       </a>
       <nav aria-label="Primary navigation">
-        <a href="/#presentations">Presentations</a>
         <a href="/publication/">Publication</a>
         <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
         <a href="mailto:saleh.ekvin@gmail.com">Email</a>
       </nav>
     </header>
+    <nav class="presentation-tabbar" aria-label="Presentation decks">
+      <a class={!activeDeck ? "active" : ""} href="/">Home</a>
+      {
+        decks.map((deck) => (
+          <a class={activeDeck === deck.slug ? "active" : ""} href={`/presentations/${deck.slug}/`}>
+            {deck.shortTitle}
+          </a>
+        ))
+      }
+    </nav>
     <slot />
     <footer class="site-footer">
       <span>Ekvin Saleh</span>

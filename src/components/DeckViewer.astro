@@ -11,7 +11,7 @@ const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
 ---
 
 <div class="deck-viewer" data-deck-viewer>
-  <div class="deck-frame reveal">
+  <div class="deck-frame reveal" tabindex="0">
     <div class="slides">
       {
         slides.map((slideNumber, index) => (
@@ -70,7 +70,7 @@ const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
         progress: true,
         slideNumber: "c/t",
         hash: false,
-        keyboardCondition: "focused",
+        keyboard: true,
         width: 1600,
         height: 900,
         margin: 0.02,
@@ -79,6 +79,7 @@ const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
       });
 
       deck.initialize();
+      viewer.focus({ preventScroll: true });
     }
   }
 </script>
