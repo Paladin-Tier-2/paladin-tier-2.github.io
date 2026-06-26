@@ -1,0 +1,30 @@
+{
+  "name": "ekvin-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "XDG_CONFIG_HOME=.astro-config ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "npm run check && XDG_CONFIG_HOME=.astro-config ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "XDG_CONFIG_HOME=.astro-config ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "check": "XDG_CONFIG_HOME=.astro-config ASTRO_TELEMETRY_DISABLED=1 astro check && npm run lint && npm run format:check && node scripts/validate-assets.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "astro": "^7.0.3",
+    "reveal.js": "^6.0.1",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.7.0",
+    "prettier": "^3.8.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript-eslint": "^8.62.0"
+  }
+}

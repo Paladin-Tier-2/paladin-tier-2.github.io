@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.astro-config
+public/assets
+assets
+package-lock.json
+portfolio-*.png
