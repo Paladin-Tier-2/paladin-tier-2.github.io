@@ -1,0 +1,106 @@
+---
+import DeckViewer from "../../components/DeckViewer.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { decks, getDeck } from "../../data/decks";
+
+export function getStaticPaths() {
+  return decks.map((deck) => ({
+    params: { slug: deck.slug },
+  }));
+}
+
+const deck = getDeck(Astro.params.slug ?? "");
+
+if (!deck) {
+  throw new Error(`Unknown presentation slug: ${Astro.params.slug}`);
+}
+---
+
+<SiteLayout title={`${deck.shortTitle} | Ekvin Saleh`}>
+  <main class="page-shell deck-page">
+    <a class="back-link" href="/#presentations">Back to presentations</a>
+    <section class="deck-hero">
+      <div>
+        <p class="kicker">{deck.category}</p>
+        <h1>{deck.title}</h1>
+        <p>{deck.summary}</p>
+      </div>
+      <div class="deck-actions">
+        <a class="button primary" href={deck.pdf}>Open full PDF</a>
+        <a class="button ghost" href="/assets/documents/ekvin-saleh-cv.pdf">Open CV</a>
+      </div>
+    </section>
+
+    <nav class="deck-tabs" aria-label="Presentation page sections">
+      <a href="#viewer">Viewer</a>
+      <a href="#slides">All slides</a>
+      <a href="#animations">Animations</a>
+      <a href={deck.pdf}>PDF</a>
+    </nav>
+
+    <section class="section-block deck-first-section" id="viewer">
+      <div class="section-heading compact">
+        <p class="kicker">{deck.slideCount} slides + {deck.media.length} animations</p>
+        <h2>Interactive viewer</h2>
+      </div>
+      <DeckViewer deck={deck} />
+    </section>
+
+    <section class="section-block" id="slides">
+      <div class="section-heading compact">
+        <p class="kicker">Scroll view</p>
+        <h2>All slides</h2>
+      </div>
+      <div class="slide-gallery">
+        {
+          Array.from({ length: deck.slideCount }, (_, index) => index + 1).map((slideNumber) => (
+            <figure class="slide-card">
+              <img
+                src={`${deck.slideRoot}/slide-${String(slideNumber).padStart(2, "0")}.png`}
+                alt={`${deck.shortTitle}, slide ${slideNumber}`}
+                loading="lazy"
+              />
+              <figcaption>
+                {slideNumber} / {deck.slideCount}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section-block" id="animations">
+      <div class="section-heading compact">
+        <p class="kicker">Playable media</p>
+        <h2>Animations</h2>
+      </div>
+      <div class="media-grid">
+        {
+          deck.media.map((item) => {
+            const src = `${deck.mediaRoot}/${item.file}`;
+            const isGif = item.file.endsWith(".gif");
+
+            return (
+              <figure class="media-card">
+                {isGif ? (
+                  <img src={src} alt={item.label} loading="lazy" />
+                ) : (
+                  <video
+                    src={src}
+                    controls
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={item.label}
+                  />
+                )}
+                <figcaption>{item.label}</figcaption>
+              </figure>
+            );
+          })
+        }
+      </div>
+    </section>
+  </main>
+</SiteLayout>

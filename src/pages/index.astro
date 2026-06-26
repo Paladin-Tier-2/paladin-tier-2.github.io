@@ -1,0 +1,57 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { decks } from "../data/decks";
+---
+
+<SiteLayout>
+  <main class="page-shell">
+    <section class="intro-grid">
+      <div>
+        <p class="kicker">Presentation portfolio</p>
+        <h1>Physics work shown through slides, simulations, and experimental evidence.</h1>
+      </div>
+      <div class="intro-copy">
+        <p>
+          I am an Applied Physics MSc student at TU Delft with an Electrical Engineering background.
+          This portfolio collects the presentations I most often reference in internship
+          applications, so the work can be viewed in the browser instead of attached as bulky slide
+          files.
+        </p>
+        <div class="intro-actions">
+          <a class="button primary" href="#presentations">View presentations</a>
+          <a class="button ghost" href="/assets/documents/ekvin-saleh-cv.pdf">Open CV</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="presentations">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Selected decks</p>
+          <h2>Four technical stories</h2>
+        </div>
+        <p>
+          The strongest portfolio evidence: condensed-matter animation work, reactor-steel radiation
+          damage, in-situ TEM of a fusion-material candidate, and computational fusion kinetics.
+        </p>
+      </div>
+      <div class="project-grid">
+        {decks.map((deck) => <ProjectCard deck={deck} />)}
+      </div>
+    </section>
+
+    <section class="publication-strip">
+      <img src="/assets/images/eis-paper-cover.png" alt="" loading="lazy" />
+      <div>
+        <p class="kicker">Published paper</p>
+        <h2>EIS-Based State of Charge Characterization of Electric Double-Layer Capacitors</h2>
+        <p>
+          IEEE Energy Conversion Congress and Exposition, 2025. Kept here as a simple publication
+          record, with the paper available if a reader wants the detail.
+        </p>
+        <a class="text-link" href="/publication/">Open publication page</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>

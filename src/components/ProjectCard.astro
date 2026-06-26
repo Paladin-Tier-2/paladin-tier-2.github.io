@@ -1,0 +1,18 @@
+---
+import type { Deck } from "../data/decks";
+
+type Props = {
+  deck: Deck;
+};
+
+const { deck } = Astro.props;
+---
+
+<a class="project-card" href={`/presentations/${deck.slug}/`}>
+  <img src={deck.thumbnail} alt="" loading="lazy" />
+  <span class="project-card-copy">
+    <span class="kicker">{deck.category}</span>
+    <strong>{deck.shortTitle}</strong>
+    <span>{deck.summary}</span>
+  </span>
+</a>

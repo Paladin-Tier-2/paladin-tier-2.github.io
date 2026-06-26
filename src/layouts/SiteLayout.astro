@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = "Ekvin Saleh | Physics Portfolio",
+  description = "Selected physics presentations, animations, and published work by Ekvin Saleh.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="identity" href="/">
+        <span class="mark">E</span>
+        <span>Ekvin Saleh</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="/#presentations">Presentations</a>
+        <a href="/publication/">Publication</a>
+        <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
+        <a href="mailto:saleh.ekvin@gmail.com">Email</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <span>Ekvin Saleh</span>
+      <span>Applied Physics MSc, TU Delft</span>
+      <a href="mailto:saleh.ekvin@gmail.com">saleh.ekvin@gmail.com</a>
+    </footer>
+  </body>
+</html>

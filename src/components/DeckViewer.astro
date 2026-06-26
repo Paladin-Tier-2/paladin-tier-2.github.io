@@ -1,0 +1,84 @@
+---
+import type { Deck } from "../data/decks";
+import { slideImage } from "../data/decks";
+
+type Props = {
+  deck: Deck;
+};
+
+const { deck } = Astro.props;
+const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
+---
+
+<div class="deck-viewer" data-deck-viewer>
+  <div class="deck-frame reveal">
+    <div class="slides">
+      {
+        slides.map((slideNumber, index) => (
+          <section>
+            <img
+              src={slideImage(deck, slideNumber)}
+              alt={`${deck.shortTitle}, slide ${slideNumber} of ${deck.slideCount}`}
+              loading={index < 2 ? "eager" : "lazy"}
+            />
+          </section>
+        ))
+      }
+      {
+        deck.media.map((item) => {
+          const src = `${deck.mediaRoot}/${item.file}`;
+          const isGif = item.file.endsWith(".gif");
+
+          return (
+            <section>
+              <div class="viewer-media-slide">
+                {isGif ? (
+                  <img src={src} alt={item.label} loading="lazy" />
+                ) : (
+                  <video
+                    src={src}
+                    controls
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={item.label}
+                  />
+                )}
+                <p>{item.label}</p>
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  import Reveal from "reveal.js";
+  import "reveal.js/reveal.css";
+
+  const viewers = document.querySelectorAll("[data-deck-viewer] .reveal");
+
+  for (const viewer of viewers) {
+    if (viewer instanceof HTMLElement && !viewer.dataset.ready) {
+      viewer.dataset.ready = "true";
+      const deck = new Reveal(viewer, {
+        embedded: true,
+        controls: true,
+        progress: true,
+        slideNumber: "c/t",
+        hash: false,
+        keyboardCondition: "focused",
+        width: 1600,
+        height: 900,
+        margin: 0.02,
+        transition: "none",
+        backgroundTransition: "none",
+      });
+
+      deck.initialize();
+    }
+  }
+</script>
