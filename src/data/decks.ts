@@ -16,8 +16,6 @@ export type Deck = {
   shortTitle: string;
   category: string;
   summary: string;
-  contribution: string;
-  methods: string[];
   slideCount: number;
   slides?: number[];
   slideRoot: string;
@@ -35,9 +33,6 @@ export const decks: Deck[] = [
     category: "Condensed matter",
     summary:
       "A three-paper story connecting field-sensitive transport, collective CDW sliding, and a light-written hidden conducting state.",
-    contribution:
-      "Built the visual explanation around mechanisms rather than definitions: when the transport changes, what physical state changed with it?",
-    methods: ["literature synthesis", "mechanism-first animation", "transport interpretation"],
     slideCount: 24,
     slideRoot: "/assets/decks/solid-state/slides",
     pdf: "/assets/documents/solid-state-presentation.pdf",
@@ -83,13 +78,6 @@ export const decks: Deck[] = [
     category: "Radiation damage",
     summary:
       "A review of whether hydrogen-ion implantation can reproduce neutron damage, and how depth-resolved PAS reveals where the shortcut breaks down.",
-    contribution:
-      "Focused the deck on the engineering question: which defect signal is real enough to stand in for reactor damage?",
-    methods: [
-      "positron lifetime spectroscopy",
-      "radiation damage interpretation",
-      "defect evidence mapping",
-    ],
     slideCount: 22,
     slideRoot: "/assets/decks/rpv/slides",
     pdf: "/assets/documents/rpv-pas-presentation.pdf",
@@ -123,14 +111,6 @@ export const decks: Deck[] = [
     category: "Microscopy and fusion materials",
     summary:
       "An in-situ TEM study of irradiation damage, the absence of visible loop accumulation, and the chemistry and thin-foil limits behind that observation.",
-    contribution:
-      "Separated the exciting claim from the evidence limits: strong TEM evidence, but not a blanket-proof material conclusion.",
-    methods: [
-      "in-situ TEM",
-      "ion irradiation",
-      "diffraction condition checks",
-      "fusion-materials reasoning",
-    ],
     slideCount: 21,
     slideRoot: "/assets/decks/tem/slides",
     pdf: "/assets/documents/tem-presentation.pdf",
@@ -194,14 +174,6 @@ export const decks: Deck[] = [
     category: "Nanotechnology",
     summary:
       "A nanofabrication story about how Ga+ FIB damage, XeF2 chemistry, and gallium diffusion turn an etching process into self-organized pillar growth.",
-    contribution:
-      "Focused the deck on the surprise: a normally destructive beam process becomes growth when damage, chemistry, diffusion, and self-masking line up.",
-    methods: [
-      "focused ion beam",
-      "SEM video evidence",
-      "EDS interpretation",
-      "nanofabrication mechanism",
-    ],
     slideCount: 16,
     slideRoot: "/assets/decks/nano/slides",
     pdf: "/assets/documents/nano-presentation.pdf",
@@ -229,9 +201,6 @@ export const decks: Deck[] = [
     category: "Computational physics | Group project",
     summary:
       "A group KMC project on muon-catalyzed fusion kinetics. This excerpt focuses on my presentation section: validation against a reduced rate model, yield behavior, and computational scaling.",
-    contribution:
-      "Focused my part of the presentation on validation, rate-model comparison, and what the simulation says about yield and losses.",
-    methods: ["Python", "Kinetic Monte Carlo", "rate-model comparison", "fusion kinetics"],
     slideCount: 26,
     slides: [7, 8, 9, 10, 11, 12, 13],
     slideRoot: "/assets/decks/computational/slides",

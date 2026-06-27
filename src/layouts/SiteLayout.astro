@@ -7,10 +7,8 @@ type Props = {
   description?: string;
 };
 
-const {
-  title = "Ekvin Saleh | Physics Portfolio",
-  description = "Selected physics presentations, animations, and published work by Ekvin Saleh.",
-} = Astro.props;
+const { title = "Ekvin Saleh", description = "Physics presentations and project work." } =
+  Astro.props;
 
 const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
 const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
