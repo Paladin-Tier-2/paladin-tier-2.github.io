@@ -1,6 +1,6 @@
 # Maintenance Notes
 
-Practical map for updating the portfolio without re-learning the repo.
+Map reminder for updating the portfolio.
 
 ## Main Files
 
@@ -26,14 +26,14 @@ Documents:
 ```text
 public/assets/documents/
 ```
-
+actual
 Images:
 
 ```text
 public/assets/images/
 ```
 
-The paper thumbnail is `public/assets/images/eis-paper-cover.png`. The actual paper is still the PDF in `public/assets/documents/`.
+The paper thumbnail is `public/assets/images/eis-paper-cover.png`. The paper is the PDF in `public/assets/documents/`.
 
 ## Add Or Change A Deck
 
@@ -59,24 +59,4 @@ dist/
 
 Do not edit `dist/` by hand. It is generated from `src/` and `public/`.
 
-## GitHub Pages
 
-Clean URL:
-
-```text
-https://paladin-tier-2.github.io/
-```
-
-Use a repository named:
-
-```text
-Paladin-Tier-2.github.io
-```
-
-Keeping the current repo name would publish under:
-
-```text
-https://paladin-tier-2.github.io/ekvin-physics-portfolio/
-```
-
-That project-page path needs extra base-path handling, so the user-site repo is the cleaner option.
