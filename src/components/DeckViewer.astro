@@ -7,7 +7,7 @@ type Props = {
 };
 
 const { deck } = Astro.props;
-const slides = Array.from({ length: deck.slideCount }, (_, index) => index + 1);
+const slides = deck.slides ?? Array.from({ length: deck.slideCount }, (_, index) => index + 1);
 const mediaBySlide = new Map<number, Deck["media"]>();
 
 for (const media of deck.media) {
@@ -30,7 +30,7 @@ for (const media of deck.media) {
                 <img
                   class="slide-image"
                   src={slideImage(deck, slideNumber)}
-                  alt={`${deck.shortTitle}, slide ${slideNumber} of ${deck.slideCount}`}
+                  alt={`${deck.shortTitle}, slide ${index + 1} of ${slides.length} (original slide ${slideNumber})`}
                   loading={index < 2 ? "eager" : "lazy"}
                 />
                 {embeddedMedia.map((item) => {

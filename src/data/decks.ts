@@ -19,6 +19,7 @@ export type Deck = {
   contribution: string;
   methods: string[];
   slideCount: number;
+  slides?: number[];
   slideRoot: string;
   pdf: string;
   thumbnail: string;
@@ -192,11 +193,12 @@ export const decks: Deck[] = [
     shortTitle: "Muon-Catalyzed Fusion",
     category: "Computational physics | Group project",
     summary:
-      "A KMC model of the muon-catalyzed fusion cycle, validated against a reduced rate model and used to test sticking, reactivation, yield, and computational scaling.",
+      "A group KMC project on muon-catalyzed fusion kinetics. This excerpt focuses on my presentation section: validation against a reduced rate model, yield behavior, and computational scaling.",
     contribution:
-      "Turned a physical reaction network into a simulation workflow where yield, losses, and runtime tradeoffs can be tested directly.",
+      "Focused my part of the presentation on validation, rate-model comparison, and what the simulation says about yield and losses.",
     methods: ["Python", "Kinetic Monte Carlo", "rate-model comparison", "fusion kinetics"],
     slideCount: 26,
+    slides: [8, 9, 10, 11, 12, 13],
     slideRoot: "/assets/decks/computational/slides",
     pdf: "/assets/documents/computational-physics-presentation.pdf",
     thumbnail: "/assets/decks/computational/slides/slide-01.svg",
@@ -207,12 +209,6 @@ export const decks: Deck[] = [
         label: "Muon-catalyzed fusion cycle animation",
         slide: 10,
         placement: { left: 44.02, top: 10.26, width: 48.23, height: 86.51 },
-      },
-      {
-        file: "image26.gif",
-        label: "Animated simulation result from the deck",
-        slide: 21,
-        placement: { left: 1.97, top: 8.31, width: 78.38, height: 82.94 },
       },
     ],
   },
