@@ -45,6 +45,14 @@ const decks = [
     thumbnail: "slide-01.svg",
   },
   {
+    slug: "fib-grown-microcapillaries",
+    slides: Array.from({ length: 16 }, (_, index) => index + 1),
+    folder: "nano",
+    media: ["supplemental-video-1.mp4", "supplemental-video-2.mp4"],
+    pdf: "nano-presentation.pdf",
+    thumbnail: "slide-01.svg",
+  },
+  {
     slug: "muon-catalyzed-fusion",
     slides: [7, 8, 9, 10, 11, 12, 13],
     folder: "computational",

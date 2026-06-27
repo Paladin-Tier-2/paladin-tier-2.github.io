@@ -32,7 +32,7 @@ export const decks: Deck[] = [
     slug: "charge-density-waves",
     title: "Charge Density Waves: From Transport Anomalies to Ultrafast Switching",
     shortTitle: "Charge Density Waves",
-    category: "Condensed matter | Individual presentation",
+    category: "Condensed matter",
     summary:
       "A three-paper story connecting field-sensitive transport, collective CDW sliding, and a light-written hidden conducting state.",
     contribution:
@@ -80,7 +80,7 @@ export const decks: Deck[] = [
     slug: "reactor-steels-pas",
     title: "Reactor Pressure Vessel Steels Studied by Positron Annihilation Spectroscopy",
     shortTitle: "Reactor Steels and PAS",
-    category: "Radiation damage | Individual presentation",
+    category: "Radiation damage",
     summary:
       "A review of whether hydrogen-ion implantation can reproduce neutron damage, and how depth-resolved PAS reveals where the shortcut breaks down.",
     contribution:
@@ -120,7 +120,7 @@ export const decks: Deck[] = [
     slug: "in-situ-tem-hea",
     title: "In-situ TEM of W-Ta-Cr-V High-Entropy Alloys under Irradiation",
     shortTitle: "In-situ TEM HEA",
-    category: "Microscopy and fusion materials | Individual presentation",
+    category: "Microscopy and fusion materials",
     summary:
       "An in-situ TEM study of irradiation damage, the absence of visible loop accumulation, and the chemistry and thin-foil limits behind that observation.",
     contribution:
@@ -184,6 +184,41 @@ export const decks: Deck[] = [
         label: "Thin-foil escape compared with bulk trapping",
         slide: 20,
         placement: { left: 31.27, top: 24.62, width: 66.8, height: 66.8 },
+      },
+    ],
+  },
+  {
+    slug: "fib-grown-microcapillaries",
+    title: "Spontaneous Growth of Gallium-Filled Microcapillaries on Ion-Bombarded GaN",
+    shortTitle: "FIB-Grown Microcapillaries",
+    category: "Nanotechnology",
+    summary:
+      "A nanofabrication story about how Ga+ FIB damage, XeF2 chemistry, and gallium diffusion turn an etching process into self-organized pillar growth.",
+    contribution:
+      "Focused the deck on the surprise: a normally destructive beam process becomes growth when damage, chemistry, diffusion, and self-masking line up.",
+    methods: [
+      "focused ion beam",
+      "SEM video evidence",
+      "EDS interpretation",
+      "nanofabrication mechanism",
+    ],
+    slideCount: 16,
+    slideRoot: "/assets/decks/nano/slides",
+    pdf: "/assets/documents/nano-presentation.pdf",
+    thumbnail: "/assets/decks/nano/slides/slide-01.svg",
+    mediaRoot: "/assets/decks/nano/media",
+    media: [
+      {
+        file: "supplemental-video-1.mp4",
+        label: "Live SEM video of droplets rising into pillars",
+        slide: 5,
+        placement: { left: 5.4, top: 7.5, width: 55.79, height: 81.71 },
+      },
+      {
+        file: "supplemental-video-2.mp4",
+        label: "Droplet nucleation and self-limiting pillar growth",
+        slide: 6,
+        placement: { left: 2.53, top: 18.46, width: 49.21, height: 72.01 },
       },
     ],
   },
