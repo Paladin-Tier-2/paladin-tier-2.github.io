@@ -12,14 +12,12 @@ export type DeckMedia = {
 
 export type Deck = {
   slug: string;
-  title: string;
   shortTitle: string;
   category: string;
   summary: string;
   slideCount: number;
   slides?: number[];
   slideRoot: string;
-  pdf: string;
   thumbnail: string;
   mediaRoot: string;
   media: DeckMedia[];
@@ -28,14 +26,12 @@ export type Deck = {
 export const decks: Deck[] = [
   {
     slug: "charge-density-waves",
-    title: "Charge Density Waves: From Transport Anomalies to Ultrafast Switching",
     shortTitle: "Charge Density Waves",
     category: "Condensed matter",
     summary:
       "A three-paper story connecting field-sensitive transport, collective CDW sliding, and a light-written hidden conducting state.",
     slideCount: 24,
     slideRoot: "/assets/decks/solid-state/slides",
-    pdf: "/assets/documents/solid-state-presentation.pdf",
     thumbnail: "/assets/decks/solid-state/slides/slide-01.svg",
     mediaRoot: "/assets/decks/solid-state/media",
     media: [
@@ -73,14 +69,12 @@ export const decks: Deck[] = [
   },
   {
     slug: "reactor-steels-pas",
-    title: "Reactor Pressure Vessel Steels Studied by Positron Annihilation Spectroscopy",
     shortTitle: "Reactor Steels and PAS",
     category: "Radiation damage",
     summary:
       "A review of whether hydrogen-ion implantation can reproduce neutron damage, and how depth-resolved PAS reveals where the shortcut breaks down.",
     slideCount: 22,
     slideRoot: "/assets/decks/rpv/slides",
-    pdf: "/assets/documents/rpv-pas-presentation.pdf",
     thumbnail: "/assets/decks/rpv/slides/slide-01.svg",
     mediaRoot: "/assets/decks/rpv/media",
     media: [
@@ -106,14 +100,12 @@ export const decks: Deck[] = [
   },
   {
     slug: "in-situ-tem-hea",
-    title: "In-situ TEM of W-Ta-Cr-V High-Entropy Alloys under Irradiation",
     shortTitle: "In-situ TEM HEA",
     category: "Microscopy and fusion materials",
     summary:
       "An in-situ TEM study of irradiation damage, the absence of visible loop accumulation, and the chemistry and thin-foil limits behind that observation.",
     slideCount: 21,
     slideRoot: "/assets/decks/tem/slides",
-    pdf: "/assets/documents/tem-presentation.pdf",
     thumbnail: "/assets/decks/tem/slides/slide-01.svg",
     mediaRoot: "/assets/decks/tem/media",
     media: [
@@ -169,14 +161,12 @@ export const decks: Deck[] = [
   },
   {
     slug: "fib-grown-microcapillaries",
-    title: "Spontaneous Growth of Gallium-Filled Microcapillaries on Ion-Bombarded GaN",
     shortTitle: "FIB-Grown Microcapillaries",
     category: "Nanotechnology",
     summary:
       "A nanofabrication story about how Ga+ FIB damage, XeF2 chemistry, and gallium diffusion turn an etching process into self-organized pillar growth.",
     slideCount: 16,
     slideRoot: "/assets/decks/nano/slides",
-    pdf: "/assets/documents/nano-presentation.pdf",
     thumbnail: "/assets/decks/nano/slides/slide-01.svg",
     mediaRoot: "/assets/decks/nano/media",
     media: [
@@ -196,7 +186,6 @@ export const decks: Deck[] = [
   },
   {
     slug: "muon-catalyzed-fusion",
-    title: "Muon-Catalyzed Fusion Kinetics with Kinetic Monte Carlo",
     shortTitle: "Muon-Catalyzed Fusion",
     category: "Computational physics | Group project",
     summary:
@@ -204,7 +193,6 @@ export const decks: Deck[] = [
     slideCount: 26,
     slides: [7, 8, 9, 10, 11, 12, 13],
     slideRoot: "/assets/decks/computational/slides",
-    pdf: "/assets/documents/computational-physics-presentation.pdf",
     thumbnail: "/assets/decks/computational/slides/slide-01.svg",
     mediaRoot: "/assets/decks/computational/media",
     media: [
