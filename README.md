@@ -1,8 +1,15 @@
-# Ekvin Saleh Physics Portfolio
+# Physics Portfolio
 
-Small Astro site for selected physics presentations, project work, one CV, and one published paper.
+Astro site for selected physics presentations, handmade animation work, my CV, and one published paper.
 
-The site is mostly data-driven. Astro builds the pages, Reveal.js gives the presentation-style slide navigation, and `src/data/decks.ts` tells the site which decks, slides, PDFs, and videos exist.
+The presentations open like slide decks in the browser. Embedded media stays inside the slide instead of being split out as separate video clips.
+
+## Stack
+
+- Astro for the static site.
+- Reveal.js for PowerPoint-style slide navigation.
+- TypeScript for deck metadata in `src/data/decks.ts`.
+- ESLint, Prettier, Astro checks, and an asset validator for basic repo hygiene.
 
 ## Run
 
@@ -11,13 +18,13 @@ npm install
 npm run dev
 ```
 
-The dev server prints a local URL, usually:
+The dev server usually opens at:
 
 ```text
 http://localhost:4321/
 ```
 
-Useful checks:
+## Checks
 
 ```bash
 npm run check
@@ -26,71 +33,22 @@ npm run build
 
 `npm run check` runs Astro diagnostics, ESLint, Prettier check, and the asset validator.
 
-## What To Edit
+## Project Notes
 
-Most normal changes happen in three places:
+The practical file map lives in [`docs/maintenance.md`](docs/maintenance.md).
 
-- `src/pages/index.astro` - homepage text and layout.
-- `src/data/decks.ts` - deck titles, summaries, slide counts, PDF paths, and embedded video positions.
-- `public/assets/` - files served directly by the site: slides, videos, PDFs, CV, and the paper thumbnail.
+## Publish
 
-The presentation page itself is shared:
-
-- `src/pages/presentations/[slug].astro` builds one page per deck from `src/data/decks.ts`.
-- `src/components/DeckViewer.astro` renders the Reveal.js slide viewer.
-- `src/components/ProjectCard.astro` renders the homepage cards.
-- `src/styles/global.css` holds the visual styling.
-
-## Asset Map
-
-Slides and videos live under:
+The clean GitHub Pages route is a user site:
 
 ```text
-public/assets/decks/<deck-folder>/slides/
-public/assets/decks/<deck-folder>/media/
+https://paladin-tier-2.github.io/
 ```
 
-Documents live under:
+That means publishing from a repository named:
 
 ```text
-public/assets/documents/
+Paladin-Tier-2.github.io
 ```
 
-The paper preview image lives under:
-
-```text
-public/assets/images/eis-paper-cover.png
-```
-
-That paper preview is a small raster thumbnail of the first PDF page. The actual paper remains the PDF in `public/assets/documents/`.
-
-## Adding Or Changing A Deck
-
-1. Put rendered slide SVGs in `public/assets/decks/<deck-folder>/slides/`.
-2. Put embedded videos or GIFs in `public/assets/decks/<deck-folder>/media/`.
-3. Put the full PDF in `public/assets/documents/`.
-4. Add or update the deck entry in `src/data/decks.ts`.
-5. Run:
-
-```bash
-npm run check
-```
-
-If a slide, video, or PDF is missing, `scripts/validate-assets.mjs` should catch it.
-
-## Deploy
-
-Build the static site:
-
-```bash
-npm run build
-```
-
-Deploy `dist/`.
-
-For Netlify:
-
-- Build command: `npm run build`
-- Publish directory: `dist`
-
-For GitHub Pages, use the generated `dist/` folder or a GitHub Actions workflow that runs `npm run build`.
+This avoids a project subpath like `/ekvin-physics-portfolio/` and keeps the site links simple.
