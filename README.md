@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-The dev server usually opens at:
+The dev server opens at:
 
 ```text
 http://localhost:4321/
@@ -37,18 +37,3 @@ npm run build
 
 The practical file map lives in [`docs/maintenance.md`](docs/maintenance.md).
 
-## Publish
-
-The clean GitHub Pages route is a user site:
-
-```text
-https://paladin-tier-2.github.io/
-```
-
-That means publishing from a repository named:
-
-```text
-Paladin-Tier-2.github.io
-```
-
-This avoids a project subpath like `/ekvin-physics-portfolio/` and keeps the site links simple.
