@@ -198,7 +198,7 @@ export const decks: Deck[] = [
       "Focused my part of the presentation on validation, rate-model comparison, and what the simulation says about yield and losses.",
     methods: ["Python", "Kinetic Monte Carlo", "rate-model comparison", "fusion kinetics"],
     slideCount: 26,
-    slides: [8, 9, 10, 11, 12, 13],
+    slides: [7, 8, 9, 10, 11, 12, 13],
     slideRoot: "/assets/decks/computational/slides",
     pdf: "/assets/documents/computational-physics-presentation.pdf",
     thumbnail: "/assets/decks/computational/slides/slide-01.svg",

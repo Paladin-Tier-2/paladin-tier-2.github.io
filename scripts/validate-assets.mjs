@@ -46,7 +46,7 @@ const decks = [
   },
   {
     slug: "muon-catalyzed-fusion",
-    slides: [8, 9, 10, 11, 12, 13],
+    slides: [7, 8, 9, 10, 11, 12, 13],
     folder: "computational",
     media: ["media1.mp4"],
     pdf: "computational-physics-presentation.pdf",
