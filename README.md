@@ -1,14 +1,20 @@
 # Ekvin Saleh Physics Portfolio
 
-This was built as my portfolio site for selected physics presentations and one published paper.
+Small Astro site for selected physics presentations, project work, one CV, and one published paper.
 
-The goal was simple: people should be able to open the work in a browser instead of downloading large slide files. The presentation pages were set up with rendered slides, playable animations, and PDF decks.
+The site is mostly data-driven. Astro builds the pages, Reveal.js gives the presentation-style slide navigation, and `src/data/decks.ts` tells the site which decks, slides, PDFs, and videos exist.
 
-## Run It
+## Run
 
 ```bash
 npm install
 npm run dev
+```
+
+The dev server prints a local URL, usually:
+
+```text
+http://localhost:4321/
 ```
 
 Useful checks:
@@ -18,22 +24,59 @@ npm run check
 npm run build
 ```
 
-`npm run check` was set up to run Astro checks, ESLint, Prettier, and an asset check for the slides, videos, PDFs, and thumbnails.
+`npm run check` runs Astro diagnostics, ESLint, Prettier check, and the asset validator.
 
-## Pages
+## What To Edit
 
-- `/presentations/charge-density-waves/`
-- `/presentations/reactor-steels-pas/`
-- `/presentations/in-situ-tem-hea/`
-- `/presentations/muon-catalyzed-fusion/`
-- `/publication/`
+Most normal changes happen in three places:
 
-## Where Things Live
+- `src/pages/index.astro` - homepage text and layout.
+- `src/data/decks.ts` - deck titles, summaries, slide counts, PDF paths, and embedded video positions.
+- `public/assets/` - files served directly by the site: slides, videos, PDFs, CV, and the paper thumbnail.
 
-- `src/data/decks.ts` kept the presentation metadata.
-- `src/pages/presentations/[slug].astro` built each presentation page.
-- `src/components/DeckViewer.astro` handled the slide viewer.
-- `public/assets/` held the rendered slides, videos, PDFs, CV, and paper thumbnail.
+The presentation page itself is shared:
+
+- `src/pages/presentations/[slug].astro` builds one page per deck from `src/data/decks.ts`.
+- `src/components/DeckViewer.astro` renders the Reveal.js slide viewer.
+- `src/components/ProjectCard.astro` renders the homepage cards.
+- `src/styles/global.css` holds the visual styling.
+
+## Asset Map
+
+Slides and videos live under:
+
+```text
+public/assets/decks/<deck-folder>/slides/
+public/assets/decks/<deck-folder>/media/
+```
+
+Documents live under:
+
+```text
+public/assets/documents/
+```
+
+The paper preview image lives under:
+
+```text
+public/assets/images/eis-paper-cover.png
+```
+
+That paper preview is a small raster thumbnail of the first PDF page. The actual paper remains the PDF in `public/assets/documents/`.
+
+## Adding Or Changing A Deck
+
+1. Put rendered slide SVGs in `public/assets/decks/<deck-folder>/slides/`.
+2. Put embedded videos or GIFs in `public/assets/decks/<deck-folder>/media/`.
+3. Put the full PDF in `public/assets/documents/`.
+4. Add or update the deck entry in `src/data/decks.ts`.
+5. Run:
+
+```bash
+npm run check
+```
+
+If a slide, video, or PDF is missing, `scripts/validate-assets.mjs` should catch it.
 
 ## Deploy
 
@@ -49,3 +92,5 @@ For Netlify:
 
 - Build command: `npm run build`
 - Publish directory: `dist`
+
+For GitHub Pages, use the generated `dist/` folder or a GitHub Actions workflow that runs `npm run build`.
