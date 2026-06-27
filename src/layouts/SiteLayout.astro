@@ -14,6 +14,7 @@ const {
 
 const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
 const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
+const email = "saleh.ekvin@gmail.com";
 ---
 
 <!doctype html>
@@ -34,7 +35,9 @@ const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
       <nav aria-label="Primary navigation">
         <a href="/publication/">Publication</a>
         <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
-        <a href="mailto:saleh.ekvin@gmail.com">Email</a>
+        <button class="email-copy" type="button" data-copy-email={email} data-label="Email"
+          >Email</button
+        >
       </nav>
     </header>
     <nav class="presentation-tabbar" aria-label="Presentation decks">
@@ -51,7 +54,36 @@ const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
     <footer class="site-footer">
       <span>Ekvin Saleh</span>
       <span>Applied Physics MSc, TU Delft</span>
-      <a href="mailto:saleh.ekvin@gmail.com">saleh.ekvin@gmail.com</a>
+      <button
+        class="email-copy footer-email"
+        type="button"
+        data-copy-email={email}
+        data-label={email}
+      >
+        {email}
+      </button>
     </footer>
+    <script>
+      const emailButtons = document.querySelectorAll("[data-copy-email]");
+
+      emailButtons.forEach((button) => {
+        button.addEventListener("click", async () => {
+          const email = button.getAttribute("data-copy-email");
+          const label = button.getAttribute("data-label") ?? "Email";
+
+          if (!email) return;
+
+          try {
+            await navigator.clipboard.writeText(email);
+            button.textContent = "Copied";
+            window.setTimeout(() => {
+              button.textContent = label;
+            }, 1400);
+          } catch {
+            button.textContent = email;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
