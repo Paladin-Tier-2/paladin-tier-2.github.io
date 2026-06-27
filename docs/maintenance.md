@@ -26,6 +26,7 @@ Documents:
 ```text
 public/assets/documents/
 ```
+
 actual
 Images:
 
@@ -58,5 +59,3 @@ dist/
 ```
 
 Do not edit `dist/` by hand. It is generated from `src/` and `public/`.
-
-

@@ -36,4 +36,3 @@ npm run build
 ## Project Notes
 
 The practical file map lives in [`docs/maintenance.md`](docs/maintenance.md).
-
