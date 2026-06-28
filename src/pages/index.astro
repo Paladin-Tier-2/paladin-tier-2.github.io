@@ -9,7 +9,7 @@ import { decks } from "../data/decks";
     <section class="intro-grid">
       <div>
         <p class="kicker">Physics Portfolio</p>
-        <h1>Presentations, simulations, and animations I want to share.</h1>
+        <h1>Presentations with custom figures and animations.</h1>
       </div>
       <div class="intro-copy">
         <p>
@@ -30,10 +30,6 @@ import { decks } from "../data/decks";
           <p class="kicker">Presentations</p>
           <h2>Topics</h2>
         </div>
-        <p>
-          Presentations and project decks from my studies. A lot of the work here was turning
-          mechanisms into figures and animations so the physics could be followed clearly.
-        </p>
       </div>
       <div class="project-grid">
         {decks.map((deck) => <ProjectCard deck={deck} />)}
@@ -45,12 +41,152 @@ import { decks } from "../data/decks";
       <div>
         <p class="kicker">Published paper</p>
         <h2>EIS-Based State of Charge Characterization of Electric Double-Layer Capacitors</h2>
-        <p>
-          IEEE Energy Conversion Congress and Exposition, 2025. From my BSc thesis work on Kelvin
-          fixtures, low-frequency EIS measurements, and automated EDLC state-of-charge estimation.
-        </p>
         <a class="text-link" href="/publication/">Open publication page</a>
       </div>
     </section>
   </main>
+
+  <div
+    class="deck-modal"
+    data-deck-modal
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-label="Presentation viewer"
+  >
+    <button class="deck-modal-backdrop" type="button" data-deck-close aria-label="Close deck"
+    ></button>
+    <div class="deck-modal-panel">
+      <button class="deck-modal-close" type="button" data-deck-close>Close</button>
+      <div class="deck-modal-hint-zone" data-deck-hint-zone aria-hidden="true"></div>
+      <p class="deck-modal-hint" data-deck-hint aria-hidden="true">
+        ← / → slides · F fullscreen · Esc close
+      </p>
+      <iframe
+        class="deck-modal-frame"
+        data-deck-frame
+        title="Presentation viewer"
+        allow="autoplay; fullscreen"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.querySelector("[data-deck-modal]");
+    const frame = document.querySelector("[data-deck-frame]");
+    const closeButton = document.querySelector(".deck-modal-close");
+    const hint = document.querySelector("[data-deck-hint]");
+    const hintZone = document.querySelector("[data-deck-hint-zone]");
+    let activeDeckLink: HTMLElement | null = null;
+    let hintTimeout: number | undefined;
+
+    const hideHint = () => {
+      if (!(hint instanceof HTMLElement)) return;
+
+      hint.classList.remove("is-visible");
+      hintTimeout = undefined;
+    };
+
+    const showHint = () => {
+      if (!(hint instanceof HTMLElement)) return;
+
+      window.clearTimeout(hintTimeout);
+      hint.classList.add("is-visible");
+      hintTimeout = window.setTimeout(hideHint, 1500);
+    };
+
+    const hasFullscreenElement = () => {
+      if (document.fullscreenElement) return true;
+
+      if (frame instanceof HTMLIFrameElement) {
+        return Boolean(frame.contentDocument?.fullscreenElement);
+      }
+
+      return false;
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (!(modal instanceof HTMLElement) || modal.hidden || event.key !== "Escape") return;
+      if (hasFullscreenElement()) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      closeDeck();
+    };
+
+    const focusDeckFrame = () => {
+      if (!(frame instanceof HTMLIFrameElement)) return;
+
+      frame.focus();
+      frame.contentWindow?.focus();
+    };
+
+    const connectFrameKeys = () => {
+      if (!(frame instanceof HTMLIFrameElement)) return;
+
+      frame.contentDocument?.addEventListener("keydown", handleEscape, true);
+      focusDeckFrame();
+    };
+
+    const closeDeck = () => {
+      if (!(modal instanceof HTMLElement) || !(frame instanceof HTMLIFrameElement)) return;
+
+      modal.hidden = true;
+      frame.removeAttribute("src");
+      document.body.classList.remove("is-deck-modal-open");
+      window.clearTimeout(hintTimeout);
+      hideHint();
+
+      if (activeDeckLink instanceof HTMLElement) {
+        activeDeckLink.focus();
+      }
+
+      activeDeckLink = null;
+    };
+
+    const openDeck = (link: HTMLAnchorElement) => {
+      if (!(modal instanceof HTMLElement) || !(frame instanceof HTMLIFrameElement)) return;
+
+      activeDeckLink = link;
+      frame.addEventListener("load", connectFrameKeys, { once: true });
+      frame.src = link.href;
+      frame.title = link.dataset.deckTitle ?? "Presentation viewer";
+      modal.hidden = false;
+      document.body.classList.add("is-deck-modal-open");
+      showHint();
+
+      if (closeButton instanceof HTMLElement) {
+        closeButton.focus();
+      }
+    };
+
+    document.querySelectorAll("[data-deck-link]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const click = event as MouseEvent;
+
+        if (
+          !(link instanceof HTMLAnchorElement) ||
+          click.defaultPrevented ||
+          click.button !== 0 ||
+          click.metaKey ||
+          click.ctrlKey ||
+          click.shiftKey ||
+          click.altKey
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+        openDeck(link);
+      });
+    });
+
+    document.querySelectorAll("[data-deck-close]").forEach((button) => {
+      button.addEventListener("click", closeDeck);
+    });
+
+    hintZone?.addEventListener("pointerenter", showHint);
+    hintZone?.addEventListener("pointermove", showHint);
+
+    document.addEventListener("keydown", handleEscape, true);
+  </script>
 </SiteLayout>

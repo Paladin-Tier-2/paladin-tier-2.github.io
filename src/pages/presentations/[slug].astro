@@ -16,7 +16,7 @@ if (!deck) {
 }
 ---
 
-<SiteLayout title={`${deck.shortTitle} | Ekvin Saleh`}>
+<SiteLayout title={deck.shortTitle} description={deck.summary} image={deck.thumbnail} bare>
   <main class="presentation-page" id="viewer">
     <DeckViewer deck={deck} />
   </main>

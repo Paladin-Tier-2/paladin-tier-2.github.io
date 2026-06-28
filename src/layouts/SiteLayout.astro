@@ -1,18 +1,30 @@
 ---
-import { decks } from "../data/decks";
 import "../styles/global.css";
 
 type Props = {
   title?: string;
   description?: string;
+  image?: string;
+  bare?: boolean;
 };
 
-const { title = "Ekvin Saleh", description = "Physics presentations and project work." } =
-  Astro.props;
+const {
+  title = "Ekvin Saleh",
+  description = "Physics presentations and project work.",
+  image,
+  bare = false,
+} = Astro.props;
 
 const activeDeck = Astro.url.pathname.match(/^\/presentations\/([^/]+)\//)?.[1];
-const bodyClass = activeDeck ? `is-deck-route deck-${activeDeck}` : undefined;
+const bodyClass = [
+  activeDeck ? `is-deck-route deck-${activeDeck}` : undefined,
+  bare ? "is-bare-route" : undefined,
+]
+  .filter(Boolean)
+  .join(" ");
 const email = "saleh.ekvin@gmail.com";
+const pageTitle = title === "Ekvin Saleh" ? title : `${title} | Ekvin Saleh`;
+const absoluteImage = image ? new URL(image, Astro.site ?? Astro.url.origin).toString() : undefined;
 ---
 
 <!doctype html>
@@ -21,43 +33,49 @@ const email = "saleh.ekvin@gmail.com";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {absoluteImage && <meta property="og:image" content={absoluteImage} />}
+    <meta name="twitter:card" content={absoluteImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
   </head>
   <body class={bodyClass}>
-    <header class="site-header">
-      <a class="identity" href="/">
-        <span class="mark">E</span>
-        <span>Ekvin Saleh</span>
-      </a>
-      <nav aria-label="Primary navigation">
-        <a href="/publication/">Publication</a>
-        <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
-      </nav>
-    </header>
-    <nav class="presentation-tabbar" aria-label="Presentation decks">
-      <a class={!activeDeck ? "active" : ""} href="/">Home</a>
-      {
-        decks.map((deck) => (
-          <a class={activeDeck === deck.slug ? "active" : ""} href={`/presentations/${deck.slug}/`}>
-            {deck.shortTitle}
+    {
+      !bare && (
+        <header class="site-header">
+          <a class="identity" href="/">
+            <span class="mark">E</span>
+            <span>Ekvin Saleh</span>
           </a>
-        ))
-      }
-    </nav>
+          <nav aria-label="Primary navigation">
+            <a href="/publication/">Publication</a>
+            <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
+          </nav>
+        </header>
+      )
+    }
     <slot />
-    <footer class="site-footer">
-      <span>Ekvin Saleh</span>
-      <span>Applied Physics MSc, TU Delft</span>
-      <button
-        class="email-copy footer-email"
-        type="button"
-        data-copy-email={email}
-        data-label={email}
-      >
-        {email}
-      </button>
-    </footer>
+    {
+      !bare && (
+        <footer class="site-footer">
+          <span>Ekvin Saleh</span>
+          <span>Applied Physics MSc, TU Delft</span>
+          <button
+            class="email-copy footer-email"
+            type="button"
+            data-copy-email={email}
+            data-label={email}
+          >
+            {email}
+          </button>
+        </footer>
+      )
+    }
     <script>
       const emailButtons = document.querySelectorAll("[data-copy-email]");
 

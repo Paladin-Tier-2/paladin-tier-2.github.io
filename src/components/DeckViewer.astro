@@ -95,6 +95,14 @@ for (const media of deck.media) {
       });
       (viewer as HTMLElement & { deck?: unknown }).deck = deck;
 
+      let initialized = false;
+
+      const relayout = () => {
+        if (!initialized) return;
+
+        deck.layout();
+      };
+
       const syncVideo = () => {
         viewer.querySelectorAll("section:not(.present) video").forEach((video) => {
           if (video instanceof HTMLVideoElement) {
@@ -113,9 +121,20 @@ for (const media of deck.media) {
         });
       };
 
-      deck.on("ready", syncVideo);
+      deck.on("ready", () => {
+        initialized = true;
+        syncVideo();
+        relayout();
+        requestAnimationFrame(relayout);
+      });
       deck.on("slidechanged", syncVideo);
-      deck.initialize();
+      Promise.resolve(deck.initialize()).then(() => {
+        initialized = true;
+        relayout();
+        requestAnimationFrame(relayout);
+      });
+      window.addEventListener("resize", relayout);
+      window.addEventListener("orientationchange", relayout);
       viewer.focus({ preventScroll: true });
     }
   }

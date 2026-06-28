@@ -8,7 +8,12 @@ type Props = {
 const { deck } = Astro.props;
 ---
 
-<a class="project-card" href={`/presentations/${deck.slug}/`}>
+<a
+  class="project-card"
+  href={`/presentations/${deck.slug}/`}
+  data-deck-link
+  data-deck-title={deck.shortTitle}
+>
   <img src={deck.thumbnail} alt="" loading="lazy" />
   <span class="project-card-copy">
     <span class="kicker">{deck.category}</span>
