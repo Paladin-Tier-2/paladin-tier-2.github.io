@@ -9,7 +9,7 @@ The presentations open like slide decks in the browser. Embedded media stays ins
 - Astro for the static site.
 - Reveal.js for PowerPoint-style slide navigation.
 - TypeScript for deck metadata in `src/data/decks.ts`.
-- ESLint, Prettier, Astro checks, and an asset validator for basic repo hygiene.
+- ESLint, Prettier, Astro checks, and an asset validator.
 
 ## Run
 
