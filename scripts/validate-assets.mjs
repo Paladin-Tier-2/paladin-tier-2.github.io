@@ -29,13 +29,15 @@ const decks = [
   },
   {
     slug: "in-situ-tem-hea",
-    slides: Array.from({ length: 21 }, (_, index) => index + 1),
+    slides: Array.from({ length: 23 }, (_, index) => index + 1),
     folder: "tem",
     media: [
       "displacement_cascade.mp4",
       "defects_to_visible_loops.mp4",
+      "aav2002_movie_s2.mp4",
       "chemical_rough_lattice.mp4",
       "bf_tem_not_chemistry.mp4",
+      "dislocation_burgers_vector.mp4",
       "tilt_211_calculation.mp4",
       "tilt_211_loop_test.mp4",
       "cr_v_phase_separation.mp4",

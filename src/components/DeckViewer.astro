@@ -103,7 +103,33 @@ for (const media of deck.media) {
         deck.layout();
       };
 
+      const primeVideo = (video: HTMLVideoElement) => {
+        video.muted = true;
+        video.preload = "auto";
+
+        if (video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+          video.load();
+        }
+      };
+
+      const primeNearbyVideos = () => {
+        const currentIndex = deck.getIndices().h;
+        const sections = Array.from(viewer.querySelectorAll(".slides > section"));
+
+        for (const index of [currentIndex - 1, currentIndex, currentIndex + 1]) {
+          const section = sections[index];
+
+          section?.querySelectorAll("video").forEach((video) => {
+            if (video instanceof HTMLVideoElement) {
+              primeVideo(video);
+            }
+          });
+        }
+      };
+
       const syncVideo = () => {
+        primeNearbyVideos();
+
         viewer.querySelectorAll("section:not(.present) video").forEach((video) => {
           if (video instanceof HTMLVideoElement) {
             video.pause();
@@ -112,8 +138,8 @@ for (const media of deck.media) {
 
         viewer.querySelectorAll(".present video").forEach((video) => {
           if (video instanceof HTMLVideoElement) {
+            primeVideo(video);
             video.currentTime = 0;
-            video.muted = true;
             video.play().catch(() => {
               video.controls = true;
             });
