@@ -1,0 +1,10 @@
+{
+  "search.exclude": {
+    "**/.astro": true,
+    "**/.astro-config": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "public/assets/decks/**/slides/*.svg": true,
+    "package-lock.json": true
+  }
+}
