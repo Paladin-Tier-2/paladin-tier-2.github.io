@@ -22,7 +22,6 @@ const bodyClass = [
 ]
   .filter(Boolean)
   .join(" ");
-const email = "saleh.ekvin@gmail.com";
 const pageTitle = title === "Ekvin Saleh" ? title : `${title} | Ekvin Saleh`;
 const absoluteImage = image ? new URL(image, Astro.site ?? Astro.url.origin).toString() : undefined;
 ---
@@ -54,7 +53,7 @@ const absoluteImage = image ? new URL(image, Astro.site ?? Astro.url.origin).toS
           </a>
           <nav aria-label="Primary navigation">
             <a href="/publication/">Publication</a>
-            <a href="/assets/documents/ekvin-saleh-cv.pdf">CV</a>
+            <a href="/assets/documents/cv.pdf">CV</a>
           </nav>
         </header>
       )
@@ -65,38 +64,8 @@ const absoluteImage = image ? new URL(image, Astro.site ?? Astro.url.origin).toS
         <footer class="site-footer">
           <span>Ekvin Saleh</span>
           <span>Applied Physics MSc, TU Delft</span>
-          <button
-            class="email-copy footer-email"
-            type="button"
-            data-copy-email={email}
-            data-label={email}
-          >
-            {email}
-          </button>
         </footer>
       )
     }
-    <script>
-      const emailButtons = document.querySelectorAll("[data-copy-email]");
-
-      emailButtons.forEach((button) => {
-        button.addEventListener("click", async () => {
-          const email = button.getAttribute("data-copy-email");
-          const label = button.getAttribute("data-label") ?? "Email";
-
-          if (!email) return;
-
-          try {
-            await navigator.clipboard.writeText(email);
-            button.textContent = "Copied";
-            window.setTimeout(() => {
-              button.textContent = label;
-            }, 1400);
-          } catch {
-            button.textContent = email;
-          }
-        });
-      });
-    </script>
   </body>
 </html>

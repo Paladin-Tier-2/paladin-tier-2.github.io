@@ -92,5 +92,5 @@ for (const { slug, slides, folder, media, pdf, thumbnail } of decks) {
 await exists("public/assets/documents/eis-edlc-ieee-2025.pdf").catch(() =>
   exists("public/assets/documents/eis-edlc-ieee-ecce-2025.pdf"),
 );
-await exists("public/assets/documents/ekvin-saleh-cv.pdf");
+await exists("public/assets/documents/cv.pdf");
 await exists("public/assets/images/eis-paper-cover.png");

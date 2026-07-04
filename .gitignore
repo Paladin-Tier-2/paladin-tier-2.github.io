@@ -5,3 +5,8 @@ dist/
 /assets/
 *.log
 portfolio-*.png
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+/cv/*.pdf
