@@ -31,7 +31,8 @@ for (const media of deck.media) {
                   class="slide-image"
                   src={slideImage(deck, slideNumber)}
                   alt={`${deck.shortTitle}, slide ${index + 1} of ${slides.length} (original slide ${slideNumber})`}
-                  loading={index < 2 ? "eager" : "lazy"}
+                  loading="eager"
+                  decoding="async"
                 />
                 {embeddedMedia.map((item) => {
                   const src = `${deck.mediaRoot}/${item.file}`;
@@ -46,7 +47,7 @@ for (const media of deck.media) {
                   return (
                     <div class="embedded-media" style={style}>
                       {isGif ? (
-                        <img src={src} alt={item.label} loading="lazy" />
+                        <img src={src} alt={item.label} loading="eager" decoding="async" />
                       ) : (
                         <video
                           src={src}
@@ -153,7 +154,11 @@ for (const media of deck.media) {
         relayout();
         requestAnimationFrame(relayout);
       });
-      deck.on("slidechanged", syncVideo);
+      deck.on("slidechanged", () => {
+        syncVideo();
+        relayout();
+        requestAnimationFrame(relayout);
+      });
       Promise.resolve(deck.initialize()).then(() => {
         initialized = true;
         relayout();
