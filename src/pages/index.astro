@@ -105,7 +105,15 @@ import { decks } from "../data/decks";
       if (hasFullscreenElement()) return;
 
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
+      closeDeck();
+    };
+
+    const handleDeckMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (!(modal instanceof HTMLElement) || modal.hidden) return;
+      if (event.data?.type !== "deck:escape" || hasFullscreenElement()) return;
+
       closeDeck();
     };
 
@@ -184,5 +192,6 @@ import { decks } from "../data/decks";
     hintZone?.addEventListener("pointermove", showHint);
 
     document.addEventListener("keydown", handleEscape, true);
+    window.addEventListener("message", handleDeckMessage);
   </script>
 </SiteLayout>

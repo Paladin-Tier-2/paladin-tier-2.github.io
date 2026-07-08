@@ -88,6 +88,7 @@ for (const media of deck.media) {
         slideNumber: false,
         hash: false,
         keyboard: true,
+        overview: false,
         width: 1600,
         height: 900,
         margin: 0.02,
@@ -147,6 +148,21 @@ for (const media of deck.media) {
           }
         });
       };
+
+      document.addEventListener(
+        "keydown",
+        (event) => {
+          if (event.key !== "Escape" || document.fullscreenElement) return;
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+
+          if (window.parent !== window) {
+            window.parent.postMessage({ type: "deck:escape" }, window.location.origin);
+          }
+        },
+        true,
+      );
 
       deck.on("ready", () => {
         initialized = true;
