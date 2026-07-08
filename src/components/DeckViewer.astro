@@ -114,6 +114,14 @@ for (const media of deck.media) {
         }
       };
 
+      const primeAllVideos = () => {
+        viewer.querySelectorAll("video").forEach((video) => {
+          if (video instanceof HTMLVideoElement) {
+            primeVideo(video);
+          }
+        });
+      };
+
       const primeNearbyVideos = () => {
         const currentIndex = deck.getIndices().h;
         const sections = Array.from(viewer.querySelectorAll(".slides > section"));
@@ -166,6 +174,7 @@ for (const media of deck.media) {
 
       deck.on("ready", () => {
         initialized = true;
+        primeAllVideos();
         syncVideo();
         relayout();
         requestAnimationFrame(relayout);
@@ -177,6 +186,7 @@ for (const media of deck.media) {
       });
       Promise.resolve(deck.initialize()).then(() => {
         initialized = true;
+        primeAllVideos();
         relayout();
         requestAnimationFrame(relayout);
       });
