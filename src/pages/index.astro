@@ -53,7 +53,6 @@ import { decks } from "../data/decks";
     <button class="deck-modal-backdrop" type="button" data-deck-close aria-label="Close deck"
     ></button>
     <div class="deck-modal-panel">
-      <button class="deck-modal-close" type="button" data-deck-close>Close</button>
       <div class="deck-modal-hint-zone" data-deck-hint-zone aria-hidden="true"></div>
       <p class="deck-modal-hint" data-deck-hint aria-hidden="true">
         ← / → slides · F fullscreen · Esc close
@@ -64,6 +63,7 @@ import { decks } from "../data/decks";
         title="Presentation viewer"
         allow="autoplay; fullscreen"></iframe>
     </div>
+    <button class="deck-modal-close" type="button" data-deck-close>Close</button>
   </div>
 
   <script>
@@ -184,8 +184,10 @@ import { decks } from "../data/decks";
       });
     });
 
-    document.querySelectorAll("[data-deck-close]").forEach((button) => {
-      button.addEventListener("click", closeDeck);
+    modal?.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("[data-deck-close]")) {
+        closeDeck();
+      }
     });
 
     hintZone?.addEventListener("pointerenter", showHint);

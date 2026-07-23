@@ -411,6 +411,7 @@ p {
   display: grid;
   place-items: center;
   padding: 12px;
+  isolation: isolate;
 }
 
 .deck-modal[hidden] {
@@ -445,7 +446,7 @@ p {
 
 .deck-modal-close {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   top: 12px;
   right: 12px;
   min-height: 38px;
@@ -458,6 +459,8 @@ p {
   font: inherit;
   font-size: 0.9rem;
   font-weight: 720;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .deck-modal-close:hover,
