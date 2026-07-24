@@ -31,7 +31,7 @@ for (const media of deck.media) {
                   class="slide-image"
                   src={slideImage(deck, slideNumber)}
                   alt={`${deck.shortTitle}, slide ${index + 1} of ${slides.length} (original slide ${slideNumber})`}
-                  loading="eager"
+                  loading={index < 2 ? "eager" : "lazy"}
                   decoding="async"
                 />
                 {embeddedMedia.map((item) => {
@@ -52,11 +52,10 @@ for (const media of deck.media) {
                         <video
                           src={src}
                           data-autoplay
-                          autoplay
                           muted
                           loop
                           playsinline
-                          preload="auto"
+                          preload="metadata"
                           aria-label={item.label}
                         />
                       )}
@@ -136,7 +135,22 @@ for (const media of deck.media) {
         }
       };
 
+      const primeNearbySlides = () => {
+        const currentIndex = deck.getIndices().h;
+        const sections = Array.from(viewer.querySelectorAll(".slides > section"));
+
+        for (const index of [currentIndex, currentIndex + 1, currentIndex - 1]) {
+          sections[index]?.querySelectorAll(".slide-image").forEach((image) => {
+            if (image instanceof HTMLImageElement) {
+              image.loading = "eager";
+              image.decode().catch(() => {});
+            }
+          });
+        }
+      };
+
       const syncVideo = () => {
+        primeNearbySlides();
         primeNearbyVideos();
 
         viewer.querySelectorAll("section:not(.present) video").forEach((video) => {
